@@ -9,14 +9,14 @@ kind: Pod
 spec:
   containers:
   - name: dind
-    image: docker:18.09-dind
+    image: docker:18.09.7-dind
     securityContext:
       privileged: true
   - name: docker
     env:
     - name: DOCKER_HOST
       value: 127.0.0.1
-    image: docker:18.09
+    image: docker:18.09.7
     command:
     - cat
     tty: true
