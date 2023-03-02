@@ -8,17 +8,8 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: dind
-    image: docker:18.09-dind
-    securityContext:
-      privileged: true
   - name: docker
-    env:
-    - name: DOCKER_HOST
-      value: 127.0.0.1
-    - name: DOCKER_TLS_VERIFY      
-      value: 1
-    image: docker:18.09
+    image: docker:latest
     command:
     - cat
     tty: true
