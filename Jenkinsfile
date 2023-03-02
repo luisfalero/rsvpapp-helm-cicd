@@ -12,10 +12,13 @@ spec:
     image: docker:18.09.7-dind
     securityContext:
       privileged: true
+    volumeMounts:
+      - name: dind-storage
+        mountPath: /var/lib/docker      
   - name: docker
     env:
     - name: DOCKER_HOST
-      value: 127.0.0.1
+      value: tcp://localhost:2375
     image: docker:18.09.7
     command:
     - cat
@@ -25,6 +28,9 @@ spec:
     command:
     - cat
     tty: true
+  volumes:
+    - name: dind-storage
+      emptyDir: {}    
 """
         }
     }
