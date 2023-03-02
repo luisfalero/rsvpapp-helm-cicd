@@ -9,17 +9,16 @@ kind: Pod
 spec:
   containers:
   - name: dind
-    image: docker:18.09.7-dind
+    image: docker:18.09-dind
     securityContext:
       privileged: true
-    volumeMounts:
-      - name: dind-storage
-        mountPath: /var/lib/docker      
   - name: docker
     env:
     - name: DOCKER_HOST
-      value: tcp://localhost:2375
-    image: docker:18.09.7
+      value: 127.0.0.1
+    - name: DOCKER_TLS_VERIFY      
+      value: 1
+    image: docker:18.09
     command:
     - cat
     tty: true
@@ -28,9 +27,6 @@ spec:
     command:
     - cat
     tty: true
-  volumes:
-    - name: dind-storage
-      emptyDir: {}    
 """
         }
     }
