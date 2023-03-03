@@ -13,11 +13,18 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+    - name: dockersock
+      mountPath: /var/run/docker.sock
   - name: tools
     image: argoproj/argo-cd-ci-builder:v1.0.0
     command:
     - cat
     tty: true
+  volumes:
+  - name: dockersock
+    hostPath:
+      path: /var/run/docker.sock
 """
         }
     }
