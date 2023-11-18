@@ -29,14 +29,12 @@ spec:
         }
     }
   environment {
-      // IMAGE_REPO = "joedayz/rsvp"
       IMAGE_REPO = "quay.io/rh_ee_lfalero/rsvp" // CAMBIAR
-      // Instead of DOCKERHUB_USER, use your Dockerhub name
   }
   stages {
     stage('Build') {
       environment {
-        DOCKERHUB_CREDS = credentials('dockerhub')
+        DOCKERHUB_CREDS = credentials('quayio')
       }
       steps {
         container('docker') {
@@ -44,7 +42,7 @@ spec:
           // Build new image
           sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
           // Publish new image
-          sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
+          sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW quay.io && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
         }
       }
     }
